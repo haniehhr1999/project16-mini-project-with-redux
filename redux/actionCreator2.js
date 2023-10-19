@@ -16,9 +16,10 @@ function edit_todo_func(){
         type: toDo_FILTER_ALL
     }
 }
-function do_todo_func(){
+function do_todo_func(id){
     return{
-        type: toDo_Do
+        type: toDo_Do ,
+        id : id
     }
 }
 function filter_all_todo_func(){

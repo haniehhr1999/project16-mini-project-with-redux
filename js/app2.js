@@ -6,9 +6,6 @@ const select = document.querySelector('select')
 const ul = document.querySelector('ul')
 
 const btnAdd = document.querySelector('.add')
-// const deleteBtn = document.querySelector('.delete')
-// const editBtn = document.querySelector('.edit')
-// const doneBtn = document.querySelector('.done')
 
 
 const todoListReducer= (state = [] , action) =>{
@@ -33,6 +30,8 @@ const todoListReducer= (state = [] , action) =>{
         }
         case toDo_Do:{
             let copyState = [...state]
+            console.log(action.id);
+
             copyState.some((todo)=> {
                 if (todo.id === action.id) {
                     todo.isComplete = !todo.isComplete
@@ -82,7 +81,7 @@ const deleteElementHandler =(todoId)=>{
 }
 
 const doElementHandler =(todoId)=>{
-    alert('hi')
+    alert(todoId)
     store.dispatch(do_todo_func(todoId))
     const todos = store.getState()
     showToDom(todos)
@@ -91,9 +90,9 @@ const doElementHandler =(todoId)=>{
 function showToDom(todos){
     ul.innerHTML =''
     todos.forEach(todoitem => {
-        const lis = document.createElement('li')
-        lis.innerHTML = `
-                    <li class="d-flex ${todoitem.isComplete ? 'complete': ''}">
+        // const lis = document.createElement('li')
+        ul.innerHTML += `
+                    <li class="${todoitem.isComplete ? 'complete d-flex': 'd-flex'}">
                         <div>${todoitem.title}</div>
                         <div>
                             <button class="delete" onClick=deleteElementHandler("${todoitem.id}")>
@@ -108,7 +107,7 @@ function showToDom(todos){
                         </div>
                     </li>
         `
-        ul.appendChild(lis)
+        // ul.appendChild(lis)
     });
 }
 window.deleteElementHandler = deleteElementHandler

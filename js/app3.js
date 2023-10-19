@@ -1,8 +1,17 @@
 // creating reducer------------------------------------------
-const reducer = (state , action)=>{
+const reducer = (state =[] , action)=>{
     switch(action.type){
         case 'ADD_TASKS':{
-            return state
+            let newToDo ={
+                id: crypto.randomUUID() ,
+                title : action.title
+            } 
+            return [ ...state, newToDo]
+            break
+        }
+        case 'REMOVE_TASKS':{
+            let newToDo =[...state].filter(item => item.title !== action.title)
+            return newToDo
             break
         }
         default:{
@@ -11,13 +20,13 @@ const reducer = (state , action)=>{
     }
 }
 // creating store--------------------------------------------
-const createStore = ()=>{
+const createStore = (reducer)=>{
 
     let state;
 
     function dispatch(action){
         state = reducer(state , action)
-        return state
+        // return state
     }
     function getState(){
         return state
@@ -31,6 +40,14 @@ const createStore = ()=>{
 let store = createStore(reducer)
 store.dispatch({
     type : 'ADD_TASKS' , 
+    title : 'Learn JS'
+})
+store.dispatch({
+    type : 'ADD_TASKS' , 
+    title : 'Learn typescript'
+})
+store.dispatch({
+    type : 'REMOVE_TASKS' , 
     title : 'Learn JS'
 })
 console.log(store);
